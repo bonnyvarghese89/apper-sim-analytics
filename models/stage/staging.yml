@@ -1,0 +1,97 @@
+version: 2
+
+models:
+
+  - name: stg_sim_item
+    description: "Deduplicated item master data from SIM."
+
+    columns:
+      - name: ITEM_KEY
+        description: "Surrogate key for item."
+        tests:
+          - not_null
+          - unique
+
+      - name: ITEM_NO
+        tests:
+          - not_null
+
+      - name: CUSTOMER_ID
+        tests:
+          - not_null
+
+      - name: SUPPLIER_ID
+        tests:
+          - not_null
+
+  - name: stg_sim_supplier_agreement
+    description: "Deduplicated supplier agreement data."
+
+    columns:
+      - name: AGREEMENT_KEY
+        tests:
+          - not_null
+          - unique
+
+      - name: CUSTOMER_ID
+        tests:
+          - not_null
+
+      - name: SUPPLIER_ID
+        tests:
+          - not_null
+
+  - name: stg_sim_current_schedule
+    description: "Current demand and supply schedule data."
+
+    columns:
+      - name: SCHEDULE_KEY
+        tests:
+          - not_null
+          - unique
+
+      - name: ITEM_NO
+        tests:
+          - not_null
+
+      - name: CUSTOMER_ORDER_NO
+        tests:
+          - not_null
+
+      - name: REQUIRED_QTY
+        tests:
+          - not_null
+
+  - name: stg_sim_dispatched_pallet
+    description: "Dispatched pallet shipment information."
+
+    columns:
+      - name: DISPATCH_KEY
+        tests:
+          - not_null
+          - unique
+
+      - name: DISPATCH_NO
+        tests:
+          - not_null
+
+      - name: PALLET_NO
+        tests:
+          - not_null
+
+  - name: stg_sim_smc_performance
+    description: "Supplier performance and dispatch metrics."
+
+    columns:
+      - name: PERFORMANCE_KEY
+        tests:
+          - not_null
+          - unique
+
+      - name: DISPATCH_NUMBER
+        tests:
+          - not_null
+
+      - name: ITEM_NO
+        tests:
+          - not_null

@@ -1,0 +1,96 @@
+version: 2
+
+sources:
+  - name: raw
+    description: "Raw SIM source tables loaded into Snowflake"
+
+    database: PRD_APPER_SIM
+    schema: RAW
+
+    tables:
+
+      - name: t_sim_item
+        description: "SIM item master extract"
+
+        columns:
+          - name: ITEM_NO
+            tests:
+              - not_null
+
+          - name: CUSTOMER_ID
+            tests:
+              - not_null
+
+          - name: SUPPLIER_ID
+            tests:
+              - not_null
+
+      - name: t_sim_current_schedule
+        description: "SIM current schedule extract"
+
+        loaded_at_field: LAND_TS
+
+        freshness:
+          warn_after: {count: 100, period: day}
+          error_after: {count: 200, period: day}
+
+        columns:
+          - name: CUSTOMER_ID
+            tests:
+              - not_null
+
+          - name: SUPPLIER_ID
+            tests:
+              - not_null
+
+          - name: ITEM_NO
+            tests:
+              - not_null
+
+      - name: t_sim_supplier_agreement
+        description: "SIM supplier agreement extract"
+
+        columns:
+          - name: CUSTOMER_ID
+            tests:
+              - not_null
+
+          - name: SUPPLIER_ID
+            tests:
+              - not_null
+
+      - name: t_sim_dispatched_pallet
+        description: "SIM dispatched pallet extract"
+
+        loaded_at_field: LAND_TS
+
+        freshness:
+          warn_after: {count: 100, period: day}
+          error_after: {count: 200, period: day}
+
+        columns:
+          - name: DISPATCH_NO
+            tests:
+              - not_null
+
+          - name: PALLET_NO
+            tests:
+              - not_null
+
+      - name: t_sim_smc_performance
+        description: "SIM supplier performance extract"
+
+        loaded_at_field: LAND_TS
+
+        freshness:
+          warn_after: {count: 100, period: day}
+          error_after: {count: 200, period: day}
+
+        columns:
+          - name: DISPATCH_NUMBER
+            tests:
+              - not_null
+
+          - name: ITEM_NO
+            tests:
+              - not_null

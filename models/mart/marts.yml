@@ -1,0 +1,167 @@
+version: 2
+
+models:
+
+  - name: dim_customer
+
+    columns:
+
+      - name: CUSTOMER_KEY
+        tests:
+          - unique
+          - not_null
+
+      - name: CUSTOMER_ID
+        tests:
+          - not_null
+
+  - name: dim_supplier
+
+    columns:
+
+      - name: SUPPLIER_KEY
+        tests:
+          - not_null
+
+      - name: SUPPLIER_ID
+        tests:
+          - not_null
+
+  - name: dim_item
+
+    columns:
+
+      - name: ITEM_KEY
+        tests:
+          - unique
+          - not_null
+
+      - name: ITEM_NO
+        tests:
+          - not_null
+
+  - name: dim_location
+
+    columns:
+
+      - name: LOCATION_KEY
+        tests:
+          - unique
+          - not_null
+
+      - name: FACTORY
+        tests:
+          - not_null
+
+      - name: GATE
+        tests:
+          - not_null
+
+  - name: fact_supply_demand
+
+    columns:
+
+      - name: CUSTOMER_KEY
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_customer')
+              field: CUSTOMER_KEY
+
+      - name: SUPPLIER_KEY
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_supplier')
+              field: SUPPLIER_KEY
+
+      - name: ITEM_KEY
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_item')
+              field: ITEM_KEY
+
+      - name: LOCATION_KEY
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_location')
+              field: LOCATION_KEY
+
+      - name: REQUIRED_QTY
+        tests:
+          - not_null
+
+      - name: DISPATCHED_QTY
+        tests:
+          - not_null
+
+      - name: FILL_RATE_PCT
+
+      - name: OPEN_QTY
+
+      - name: SHORTAGE_QTY
+
+      - name: ON_TIME_FLAG
+        tests:
+          - accepted_values:
+              values: [0, 1]
+
+      - name: LATE_FLAG
+        tests:
+          - accepted_values:
+              values: [0, 1]
+
+  - name: fact_inventory_performance
+
+    columns:
+
+      - name: CUSTOMER_KEY
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_customer')
+              field: CUSTOMER_KEY
+
+      - name: SUPPLIER_KEY
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_supplier')
+              field: SUPPLIER_KEY
+
+      - name: ITEM_KEY
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_item')
+              field: ITEM_KEY
+
+      - name: LOCATION_KEY
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_location')
+              field: LOCATION_KEY
+
+      - name: REQUESTED_QTY
+        tests:
+          - not_null
+
+      - name: DISPATCHED_QTY
+        tests:
+          - not_null
+
+      - name: DISPATCH_VALUE
+
+      - name: INVENTORY_GAP
+
+      - name: INVENTORY_UTILIZATION_PCT
+
+      - name: INVENTORY_STATUS
+
+      - name: ON_TIME_DISPATCH_FLAG
+        tests:
+          - accepted_values:
+              values: [0, 1]
