@@ -29,7 +29,7 @@ SELECT
         'ORDER_LINE'
     ]) }} AS SCHEDULE_KEY,
 
-    CUSTOMER_ID,
+    CUSTOMER_ID, -- Ottakkannan
     SUPPLIER_ID,
     ITEM_NO,
     FACTORY,
